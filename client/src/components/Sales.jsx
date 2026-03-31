@@ -1,110 +1,118 @@
 import React from 'react';
-import { DollarSign, TrendingUp, TrendingDown, Clock, Search, MoreHorizontal } from 'lucide-react';
+import { Search, Calendar, ChevronLeft, ChevronRight, FileOutput, MoreVertical } from 'lucide-react';
 
 const Sales = () => {
     const orders = [
-        { id: 'ORD-9912', client: 'Green Homes AI', amount: '$42,000.00', status: 'Payment Pending', date: '2024-03-31', item: 'Elite Touch 4G x 500' },
-        { id: 'ORD-9913', client: 'Luxe Hotels NYC', amount: '$12,450.00', status: 'In Production', date: '2024-03-31', item: 'Standard 2G x 250' },
-        { id: 'ORD-9914', client: 'Retail Direct', amount: '$1,200.00', status: 'Shipped', date: '2024-03-30', item: 'Elite Touch 4G x 12' },
-        { id: 'ORD-9915', client: 'Industrial Hub', amount: '$5,800.00', status: 'Completed', date: '2024-03-30', item: 'Smart Relay 10A x 140' },
+        { id: '#ORD-99210', customer: 'Apex Logistics Corp.', initials: 'AL', timestamp: 'Oct 24, 2023 | 14:32', value: '$12,450.00', status: 'PROCESSING', statusColor: '#00E5FF', progress: 45 },
+        { id: '#ORD-99198', customer: 'NeoTech Systems', initials: 'NT', timestamp: 'Oct 23, 2023 | 09:15', value: '$8,120.45', status: 'PENDING', statusColor: '#FFB300', progress: 15 },
+        { id: '#ORD-99185', customer: 'Sinter Industries', initials: 'SI', timestamp: 'Oct 22, 2023 | 16:45', value: '$45,900.00', status: 'DELIVERED', statusColor: '#00E676', progress: 100 },
+        { id: '#ORD-99172', customer: 'Heavy Vulcan Foundry', initials: 'HV', timestamp: 'Oct 21, 2023 | 11:20', value: '$2,300.12', status: 'SHIPPED', statusColor: '#00E5FF', progress: 75 },
     ];
 
     return (
-        <div className="sales-view">
-            <div className="header">
-                 <div className="title-section">
-                    <h1>Sales & Orders</h1>
-                    <p>Financial Telemetry & Commercial Activity</p>
+        <div className="obsidian-view">
+            <div className="obsidian-view-header">
+                 <div className="header-title-section">
+                    <h1>Order Management</h1>
+                    <p>MONITORING REAL-TIME PROCUREMENT CYCLES AND FULFILLMENT TELEMETRY ACROSS ALL INDUSTRIAL SECTORS.</p>
                 </div>
-                <div className="status-badge revenue">
-                   <TrendingUp size={14} /> REVENUE: $124K (+14%)
-                </div>
+                <button className="btn-obsidian-secondary"><FileOutput size={16} /> EXPORT MANIFEST</button>
             </div>
 
-            <div className="stat-grid">
-               <div className="stat-card">
-                  <span className="stat-label">GROSS MARGIN</span>
-                  <div className="stat-value">64.2%</div>
-                  <p className="stat-diff" style={{ color: '#00E676' }}>↗ 1.4% this quarter</p>
-               </div>
-               <div className="stat-card">
-                  <span className="stat-label">AVERAGE ORDER VALUE</span>
-                  <div className="stat-value">$14,240</div>
-                  <p className="stat-diff" style={{ color: '#FF3D00' }}>↘ 5% vs Average</p>
-               </div>
-               <div className="stat-card">
-                  <span className="stat-label">OUTSTANDING PAYMENTS</span>
-                  <div className="stat-value">$42,900</div>
-                  <p className="stat-diff" style={{ color: '#FFB300' }}>⚠️ 8 Invoices past due</p>
-               </div>
-               <div className="stat-card">
-                  <span className="stat-label">CONVERSION RATE</span>
-                  <div className="stat-value">22.4%</div>
-                  <p className="stat-diff">Standard: 18.0%</p>
-               </div>
-            </div>
-
-            <div className="card-panel">
-                <div className="panel-header">
-                    <h3 className="panel-title">Active Orders</h3>
-                    <div className="search-mini">
-                        <Search size={14} />
-                        <input type="text" placeholder="Search order ID..." />
-                    </div>
+            <div className="obsidian-filters-bar order-filters">
+                <div className="search-group-obs">
+                    <Search size={16} />
+                    <input type="text" placeholder="Search by Order ID or Customer..." />
                 </div>
-                <div className="table-responsive">
-                    <table className="orders-table">
-                        <thead>
-                            <tr>
-                                <th>ORDER ID</th>
-                                <th>CLIENT</th>
-                                <th>ITEMS</th>
-                                <th>AMOUNT</th>
-                                <th>STATUS</th>
-                                <th>DATE</th>
-                                <th>ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {orders.map((o, i) => (
-                                <tr key={i}>
-                                    <td className="order-id">#{o.id}</td>
-                                    <td className="client-name">{o.client}</td>
-                                    <td>{o.item}</td>
-                                    <td className="amount">{o.amount}</td>
-                                    <td><span className={`status-pill ${o.status.toLowerCase().replace(' ', '-')}`}>{o.status}</span></td>
-                                    <td className="date">{o.date}</td>
-                                    <td><button className="icon-btn"><MoreHorizontal size={14} /></button></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className="filter-group-obs">
+                   <div className="filter-item-obs">
+                      <span>STATUS FILTER</span>
+                      <select><option>All Statuses</option></select>
+                   </div>
+                   <div className="filter-item-obs">
+                      <span>DATE RANGE</span>
+                      <div className="date-input-obs">
+                         <input type="text" value="mm/dd/yyyy" readOnly />
+                         <span>to</span>
+                         <input type="text" value="mm/dd/yyyy" readOnly />
+                         <Calendar size={14} />
+                      </div>
+                   </div>
                 </div>
             </div>
 
-            <div className="content-row">
-                 <div className="card-panel">
-                    <h3 className="panel-title">Revenue by Region</h3>
-                    <div className="region-bars">
-                        <div className="region-bar-item">
-                            <span className="region-name">NORTH AMERICA</span>
-                            <div className="region-progress-bar" style={{ width: '65%' }}></div>
-                            <span className="region-percent">65%</span>
-                        </div>
-                        <div className="region-bar-item">
-                            <span className="region-name">EUROPE</span>
-                            <div className="region-progress-bar" style={{ width: '22%' }}></div>
-                            <span className="region-percent">22%</span>
-                        </div>
-                        <div className="region-bar-item">
-                            <span className="region-name">ASIA PACIFIC</span>
-                            <div className="region-progress-bar" style={{ width: '13%' }}></div>
-                            <span className="region-percent">13%</span>
-                        </div>
-                    </div>
-                 </div>
+            <div className="obsidian-table-container">
+                <table className="obsidian-data-table sales-table">
+                   <thead>
+                      <tr>
+                         <th>ORDER ID</th>
+                         <th>CUSTOMER ENTITY</th>
+                         <th>TIMESTAMP</th>
+                         <th>NET VALUE</th>
+                         <th>FULFILLMENT STATUS</th>
+                         <th>ACTION</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      {orders.map((o, i) => (
+                         <tr key={i}>
+                            <td className="order-id-cell">{o.id}</td>
+                            <td className="customer-cell">
+                               <div className="customer-avatar" style={{ backgroundColor: `rgba(255, 255, 255, 0.05)`, border: `1px solid rgba(255, 255, 255, 0.1)` }}>{o.initials}</div>
+                               <span className="customer-name-text">{o.customer}</span>
+                            </td>
+                            <td className="timestamp-cell">{o.timestamp}</td>
+                            <td className="value-cell">{o.value}</td>
+                            <td className="status-cell">
+                               <div className="status-viz">
+                                  <div className="status-progress-circle">
+                                     <svg viewBox="0 0 36 36">
+                                        <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#222" strokeWidth="2.5" />
+                                        <path className="circle-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={o.statusColor} strokeWidth="2.5" strokeDasharray={`${o.progress}, 100`} />
+                                     </svg>
+                                  </div>
+                                  <span className="status-text-obs" style={{ color: o.statusColor }}>{o.status}</span>
+                               </div>
+                            </td>
+                            <td><button className="btn-action-obs"><MoreVertical size={16} /></button></td>
+                         </tr>
+                      ))}
+                   </tbody>
+                </table>
             </div>
 
+            <div className="obsidian-table-footer">
+               <span className="footer-stats-text">Showing 1 to 4 of 128 orders</span>
+               <div className="obsidian-pagination">
+                  <button className="page-nav-btn"><ChevronLeft size={16} /></button>
+                  <button className="page-num-btn active">1</button>
+                  <button className="page-num-btn">2</button>
+                  <button className="page-num-btn">3</button>
+                  <span className="page-dots">...</span>
+                  <button className="page-num-btn">12</button>
+                  <button className="page-nav-btn"><ChevronRight size={16} /></button>
+               </div>
+            </div>
+
+            <div className="obsidian-ledger-stats">
+               <div className="ledger-stat-card flex-between">
+                  <div className="stat-group-obs">
+                     <span className="l-stat-label">AVG CYCLE TIME</span>
+                     <div className="l-stat-value">1.4 <span className="unit-text">days</span></div>
+                  </div>
+               </div>
+               <div className="ledger-stat-card flex-between">
+                  <div className="stat-group-obs">
+                     <span className="l-stat-label">GLOBAL ORDER VOLUME</span>
+                     <div className="l-stat-value">1,204 <span className="l-stat-diff positive">↗ +12%</span></div>
+                  </div>
+                  <div className="mini-chart-bars-obs">
+                    {[10, 30, 20, 40, 60, 100, 40].map((h, i) => (
+                      <div key={i} className="mini-bar-obs" style={{ height: `${h}%`, backgroundColor: i === 5 ? 'var(--accent-cyan)' : 'rgba(255, 255, 255, 0.1)' }}></div>
+                    ))}
+                  </div>
+               </div>
+            </div>
         </div>
     );
 };

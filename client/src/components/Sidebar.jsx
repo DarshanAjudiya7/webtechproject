@@ -1,48 +1,55 @@
 import React from 'react';
 import { 
-  LayoutDashboard, 
+  BarChart2, 
   Package, 
   Factory, 
   ShieldCheck, 
   DollarSign, 
-  Users 
+  Users, 
+  HelpCircle, 
+  LogOut,
+  Plus
 } from 'lucide-react';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-    { id: 'inventory', label: 'Inventory', icon: <Package size={18} /> },
-    { id: 'manufacturing', label: 'Manufacturing', icon: <Factory size={18} /> },
-    { id: 'quality', label: 'Quality Control', icon: <ShieldCheck size={18} /> },
-    { id: 'sales', label: 'Sales', icon: <DollarSign size={18} /> },
-    { id: 'staff', label: 'Staff', icon: <Users size={18} /> }
+    { id: 'dashboard', label: 'DASHBOARD', icon: <BarChart2 size={18} /> },
+    { id: 'inventory', label: 'INVENTORY', icon: <Package size={18} /> },
+    { id: 'manufacturing', label: 'MANUFACTURING', icon: <Factory size={18} /> },
+    { id: 'quality', label: 'QUALITY CONTROL', icon: <ShieldCheck size={18} /> },
+    { id: 'sales', label: 'SALES', icon: <DollarSign size={18} /> },
+    { id: 'staff', label: 'STAFF', icon: <Users size={18} /> }
   ];
 
   return (
-    <aside className="sidebar">
-      <div className="brand">
-        <h1 className="brand-name">OBSIDIAN FORGE</h1>
-        <p className="brand-sub">Industrial Luminescence</p>
+    <aside className="sidebar-obsidian">
+      <div className="brand-obsidian">
+        <h1 className="brand-title">OBSIDIAN FORGE</h1>
+        <div className="brand-details">
+           <span className="brand-sub">Industrial Luminescence</span>
+           <span className="brand-os">MANUFACTURING OS</span>
+        </div>
       </div>
       
-      <nav className="nav-links">
+      <nav className="nav-links-obsidian">
         {menuItems.map(item => (
           <button 
             key={item.id}
-            className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
+            className={`nav-item-obsidian ${activeTab === item.id ? 'active' : ''}`}
             onClick={() => setActiveTab(item.id)}
           >
-            <span className="nav-icon">{item.icon}</span>
-            <span className="nav-label">{item.label}</span>
+            <span className="nav-icon-obsidian">{item.icon}</span>
+            <span className="nav-label-obsidian">{item.label}</span>
           </button>
         ))}
       </nav>
 
-      <button className="new-batch-btn">New Batch +</button>
-      
-      <div className="sidebar-footer">
-         <div className="nav-item">❓ SUPPORT</div>
-         <div className="nav-item">🚪 LOGOUT</div>
+      <div className="sidebar-footer-obsidian">
+         <button className="btn-new-batch">New Batch <Plus size={16} /></button>
+         <div className="footer-links">
+            <button className="footer-link"><HelpCircle size={14} /> SUPPORT</button>
+            <button className="footer-link"><LogOut size={14} /> LOGOUT</button>
+         </div>
       </div>
     </aside>
   );
