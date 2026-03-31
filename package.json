@@ -2,8 +2,11 @@
   "name": "webtech-project",
   "version": "1.0.0",
   "scripts": {
-    "dev": "npm run dev --prefix client",
-    "install-all": "npm install --prefix client",
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\"",
+    "install-all": "npm install --prefix client && npm install --prefix server",
     "build": "cd client && npm install && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

@@ -1,120 +1,93 @@
 import React from 'react';
-import { Search, Calendar, ChevronLeft, ChevronRight, FileOutput, MoreVertical } from 'lucide-react';
+import { DollarSign, TrendingUp, ShoppingCart, Users, MoreHorizontal } from 'lucide-react';
 
-const Sales = () => {
-    const orders = [
-        { id: '#ORD-99210', customer: 'Apex Logistics Corp.', initials: 'AL', timestamp: 'Oct 24, 2023 | 14:32', value: '$12,450.00', status: 'PROCESSING', statusColor: '#00E5FF', progress: 45 },
-        { id: '#ORD-99198', customer: 'NeoTech Systems', initials: 'NT', timestamp: 'Oct 23, 2023 | 09:15', value: '$8,120.45', status: 'PENDING', statusColor: '#FFB300', progress: 15 },
-        { id: '#ORD-99185', customer: 'Sinter Industries', initials: 'SI', timestamp: 'Oct 22, 2023 | 16:45', value: '$45,900.00', status: 'DELIVERED', statusColor: '#00E676', progress: 100 },
-        { id: '#ORD-99172', customer: 'Heavy Vulcan Foundry', initials: 'HV', timestamp: 'Oct 21, 2023 | 11:20', value: '$2,300.12', status: 'SHIPPED', statusColor: '#00E5FF', progress: 75 },
-    ];
+const orders = [
+  { id: '#ORD-9982', customer: 'Rajesh Industries', value: '₹45,280', status: 'Delivered', date: 'Oct 24' },
+  { id: '#ORD-9981', customer: 'Meena Electricals',  value: '₹12,400', status: 'Processing', date: 'Oct 23' },
+  { id: '#ORD-9980', customer: 'Vijay Tech Ltd.',    value: '₹88,900', status: 'Shipped',  date: 'Oct 23' },
+  { id: '#ORD-9979', customer: 'Apollo Tech',        value: '₹4,500',  status: 'Cancelled', date: 'Oct 22' },
+];
 
-    return (
-        <div className="obsidian-view">
-            <div className="obsidian-view-header">
-                 <div className="header-title-section">
-                    <h1>Order Management</h1>
-                    <p>MONITORING REAL-TIME PROCUREMENT CYCLES AND FULFILLMENT TELEMETRY ACROSS ALL INDUSTRIAL SECTORS.</p>
-                </div>
-                <button className="btn-obsidian-secondary"><FileOutput size={16} /> EXPORT MANIFEST</button>
-            </div>
-
-            <div className="obsidian-filters-bar order-filters">
-                <div className="search-group-obs">
-                    <Search size={16} />
-                    <input type="text" placeholder="Search by Order ID or Customer..." />
-                </div>
-                <div className="filter-group-obs">
-                   <div className="filter-item-obs">
-                      <span>STATUS FILTER</span>
-                      <select><option>All Statuses</option></select>
-                   </div>
-                   <div className="filter-item-obs">
-                      <span>DATE RANGE</span>
-                      <div className="date-input-obs">
-                         <input type="text" value="mm/dd/yyyy" readOnly />
-                         <span>to</span>
-                         <input type="text" value="mm/dd/yyyy" readOnly />
-                         <Calendar size={14} />
-                      </div>
-                   </div>
-                </div>
-            </div>
-
-            <div className="obsidian-table-container">
-                <table className="obsidian-data-table sales-table">
-                   <thead>
-                      <tr>
-                         <th>ORDER ID</th>
-                         <th>CUSTOMER ENTITY</th>
-                         <th>TIMESTAMP</th>
-                         <th>NET VALUE</th>
-                         <th>FULFILLMENT STATUS</th>
-                         <th>ACTION</th>
-                      </tr>
-                   </thead>
-                   <tbody>
-                      {orders.map((o, i) => (
-                         <tr key={i}>
-                            <td className="order-id-cell">{o.id}</td>
-                            <td className="customer-cell">
-                               <div className="customer-avatar" style={{ backgroundColor: `rgba(255, 255, 255, 0.05)`, border: `1px solid rgba(255, 255, 255, 0.1)` }}>{o.initials}</div>
-                               <span className="customer-name-text">{o.customer}</span>
-                            </td>
-                            <td className="timestamp-cell">{o.timestamp}</td>
-                            <td className="value-cell">{o.value}</td>
-                            <td className="status-cell">
-                               <div className="status-viz">
-                                  <div className="status-progress-circle">
-                                     <svg viewBox="0 0 36 36">
-                                        <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#222" strokeWidth="2.5" />
-                                        <path className="circle-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={o.statusColor} strokeWidth="2.5" strokeDasharray={`${o.progress}, 100`} />
-                                     </svg>
-                                  </div>
-                                  <span className="status-text-obs" style={{ color: o.statusColor }}>{o.status}</span>
-                               </div>
-                            </td>
-                            <td><button className="btn-action-obs"><MoreVertical size={16} /></button></td>
-                         </tr>
-                      ))}
-                   </tbody>
-                </table>
-            </div>
-
-            <div className="obsidian-table-footer">
-               <span className="footer-stats-text">Showing 1 to 4 of 128 orders</span>
-               <div className="obsidian-pagination">
-                  <button className="page-nav-btn"><ChevronLeft size={16} /></button>
-                  <button className="page-num-btn active">1</button>
-                  <button className="page-num-btn">2</button>
-                  <button className="page-num-btn">3</button>
-                  <span className="page-dots">...</span>
-                  <button className="page-num-btn">12</button>
-                  <button className="page-nav-btn"><ChevronRight size={16} /></button>
-               </div>
-            </div>
-
-            <div className="obsidian-ledger-stats">
-               <div className="ledger-stat-card flex-between">
-                  <div className="stat-group-obs">
-                     <span className="l-stat-label">AVG CYCLE TIME</span>
-                     <div className="l-stat-value">1.4 <span className="unit-text">days</span></div>
-                  </div>
-               </div>
-               <div className="ledger-stat-card flex-between">
-                  <div className="stat-group-obs">
-                     <span className="l-stat-label">GLOBAL ORDER VOLUME</span>
-                     <div className="l-stat-value">1,204 <span className="l-stat-diff positive">↗ +12%</span></div>
-                  </div>
-                  <div className="mini-chart-bars-obs">
-                    {[10, 30, 20, 40, 60, 100, 40].map((h, i) => (
-                      <div key={i} className="mini-bar-obs" style={{ height: `${h}%`, backgroundColor: i === 5 ? 'var(--accent-cyan)' : 'rgba(255, 255, 255, 0.1)' }}></div>
-                    ))}
-                  </div>
-               </div>
-            </div>
-        </div>
-    );
+const statusClass = {
+  Delivered: 'badge-success', Processing: 'badge-warning', Shipped: 'badge-info', Cancelled: 'badge-danger',
 };
 
-export default Sales;
+export default function Sales() {
+  return (
+    <div className="obsidian-view">
+      <div className="obsidian-view-header">
+        <div>
+          <h1 className="page-title">Sales Analytics</h1>
+          <p className="page-subtitle">REVENUE STREAM & ORDER PIPELINE METRICS</p>
+        </div>
+        <button className="btn-obsidian-primary">GENERATE REPORT</button>
+      </div>
+
+      <div className="grid-4 mb-20">
+        {[
+          { label: 'Quarterly Revenue', value: '₹12.4L', color: '#38b2ac', icon: DollarSign },
+          { label: 'Open Orders',       value: '24',     color: '#9b59b6', icon: ShoppingCart },
+          { label: 'New Customers',     value: '12',     color: '#3498db', icon: Users },
+          { label: 'Avg Order Value',   value: '₹4,280', color: '#e74c3c', icon: TrendingUp },
+        ].map(c => {
+          const Icon = c.icon;
+          return (
+            <div key={c.label} className="obsidian-card" style={{ borderTop: `3px solid ${c.color}` }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: `${c.color}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: c.color }}>
+                  <Icon size={18} />
+                </div>
+                <span className="stat-inline-label">{c.label}</span>
+              </div>
+              <span style={{ fontSize: 26, fontWeight: 800, color: c.color }}>{c.value}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="grid-2">
+        <div className="obsidian-card">
+          <h3 className="panel-title-obs mb-20">Recent Orders</h3>
+          <table className="table-obs">
+            <thead>
+              <tr>
+                <th>ORDER ID</th>
+                <th>CUSTOMER</th>
+                <th>VALUE</th>
+                <th>STATUS</th>
+                <th>DATE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order, i) => (
+                <tr key={i}>
+                  <td style={{ color: '#3182ce', fontWeight: 800 }}>{order.id}</td>
+                  <td style={{ fontWeight: 600 }}>{order.customer}</td>
+                  <td style={{ fontWeight: 700 }}>{order.value}</td>
+                  <td><span className={`badge-obs ${statusClass[order.status]}`}>{order.status}</span></td>
+                  <td style={{ color: 'var(--text-secondary)' }}>{order.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="obsidian-card">
+          <h3 className="panel-title-obs">Monthly Revenue Chart</h3>
+          <div style={{ height: 220, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', marginTop: 20, padding: '0 10px' }}>
+            {[60, 80, 50, 90, 70, 100, 110, 80, 70, 90, 95, 115].map((h, i) => (
+              <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                <div style={{ height: `${h * 1.8}px`, width: 18, background: i === 6 ? '#38b2ac' : '#e2e8f0', borderRadius: 4, transition: 'all 0.3s' }}></div>
+                <span style={{ fontSize: 10, color: 'var(--text-secondary)' }}>{['J','F','M','A','M','J','J','A','S','O','N','D'][i]}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: 16 }}>
+            <span style={{ fontSize: 16, fontWeight: 800 }}>+12% projected growth</span>
+            <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4 }}>vs last quarter</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   DollarSign, 
   ShoppingCart, 
@@ -8,169 +8,121 @@ import {
   Zap, 
   Info,
   Calendar,
-  ChevronRight
+  ChevronRight,
+  Edit3
 } from 'lucide-react';
 
-const StatCard = ({ label, value, diff, icon: Icon, color, progress }) => (
+const StatCard = ({ label, value, diff, icon: Icon, color, negative }) => (
   <div className="stat-card-base">
     <div className="stat-card-header">
       <span className="stat-label-text">{label}</span>
-      <div className="stat-card-icon-box"><Icon size={16} /></div>
+      <div className="stat-card-icon-box" style={{ color }}><Icon size={18} /></div>
     </div>
     <div className="stat-card-body">
       <h3 className="stat-value-text">{value}</h3>
-      {progress !== undefined ? (
-        <div className="stat-progress-bar">
-           <div className="progress-fill" style={{ width: `${progress}%`, backgroundColor: color }}></div>
-        </div>
-      ) : (
-        <p className="stat-diff-text" style={{ color }}>{diff}</p>
-      )}
+      <div className={`stat-diff-text ${negative ? 'negative' : 'positive'}`}>
+        <span>{diff}</span>
+      </div>
     </div>
   </div>
 );
 
-const Dashboard = () => (
+const Dashboard = ({ name }) => {
+  // Use local mock data instead of server
+  const [stats] = useState({
+    revenue: "$12,896",
+    orders: "1,874",
+    inventoryHealth: "75%",
+    repairs: "1,204"
+  });
+
+  return (
   <div className="dashboard-obsidian">
     <div className="obsidian-view-header">
-      <div className="header-title-section">
-        <h1>System Core</h1>
-        <p>REAL-TIME TELEMETRY DASHBOARD</p>
-      </div>
-      <div className="status-badge-network">
-        <span className="dot pulse"></span> NETWORK STABLE
-      </div>
+      <h1 className="panel-title-obs" style={{ fontSize: '28px' }}>Dashboard</h1>
+      <div className="view-all-obs">Thursday, July 2</div>
     </div>
 
     <div className="obsidian-stat-grid">
-      <StatCard label="TOTAL REVENUE" value="$124,000" diff="↗ 12.4% vs last month" color="#00E676" icon={DollarSign} />
-      <StatCard label="ACTIVE ORDERS" value="42" diff="⏰ 8 Priority express" color="#FFB300" icon={ShoppingCart} />
-      <StatCard label="INVENTORY HEALTH" value="98%" progress={98} color="#00E5FF" icon={Box} />
-      <StatCard label="PENDING REPAIRS" value="12" diff="⚠️ 4 High urgency" color="#FF3D00" icon={Wrench} />
+      <StatCard label="Total Revenue" value={stats.revenue} diff="↘ 3.47%" color="#38b2ac" icon={DollarSign} negative />
+      <StatCard label="Total Expense" value="$6,886" diff="↘ -3.47%" color="#38b2ac" icon={ShoppingCart} negative />
+      <StatCard label="Total Reservations" value={stats.orders} diff="↗ +2.54%" color="#2d3748" icon={Box} />
+      <StatCard label="Occupied Table" value={stats.inventoryHealth} diff="↘ -2.37%" color="#38b2ac" icon={Wrench} negative />
     </div>
 
     <div className="obsidian-content-row">
-      <div className="obsidian-card-panel flex-2">
+      <div className="obsidian-card-panel">
         <div className="panel-header-obs">
-            <h3 className="panel-title-obs">Revenue Performance</h3>
-            <span className="year-pill-obs">2024</span>
+            <h3 className="panel-title-obs">Current Reservations</h3>
+            <span className="view-all-obs">View All</span>
         </div>
-        <div className="obsidian-chart-placeholder">
-           {/* Chart visualization */}
-           <div className="chart-bars-obs">
-              {[30, 45, 35, 75, 55, 65].map((h, i) => (
-                <div key={i} className="bar-wrapper-obs">
-                  <div className="bar-obs" style={{ height: `${h}%` }}></div>
-                  <span className="bar-label-obs">{['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN'][i]}</span>
+        <div className="qc-list-obs">
+           {[
+             { name: 'Michelle Rivera', time: '17:40', party: '4/4', p: '4 People', status: 'Confirmed' },
+             { name: 'Arlene McCoy', time: '17:40', party: '1/3', p: '3 People', status: 'Confirmed' },
+             { name: 'Savannah Nguyen', time: '17:40', party: '4/5', p: '5 People', status: 'Confirmed' }
+           ].map((item, i) => (
+             <div key={i} className="qc-item-obs">
+                <div className="qc-avatar-obs" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${item.name})` }}></div>
+                <div className="qc-info-obs">
+                   <h4>{item.name}</h4>
+                   <p>{item.time} • {item.party} • {item.p}</p>
                 </div>
+                <span className="qc-status-pill confirmed">{item.status}</span>
+                <Edit3 size={14} style={{ color: '#718096', marginLeft: '12px' }} />
+             </div>
+           ))}
+        </div>
+      </div>
+      
+      <div className="obsidian-card-panel">
+        <h3 className="panel-title-obs">Average Check Size (USD)</h3>
+        <div className="chart-container-obs">
+            <div className="obsidian-chart-placeholder" style={{ height: '220px', alignItems: 'flex-end', justifyContent: 'space-around' }}>
+               {[40, 60, 30, 80, 50, 90, 70].map((h, i) => (
+                 <div key={i} className="bar-wrapper-obs" style={{ width: '12px', background: 'linear-gradient(to bottom, #9b59b6, rgba(155, 89, 182, 0.1))', height: `${h}%`, borderRadius: '6px' }}></div>
+               ))}
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="obsidian-content-row">
+      <div className="obsidian-card-panel">
+        <h3 className="panel-title-obs">Reservations Per Day</h3>
+        <div className="chart-container-obs">
+           <div className="chart-bars-obs" style={{ gap: '12px', padding: '0 20px' }}>
+              {[80, 40, 100, 60, 90, 50, 70].map((h, i) => (
+                <div key={i} className="bar-obs" style={{ height: `${h}%`, width: '18px', background: '#38b2ac', opacity: 0.8, borderRadius: '4px' }}></div>
               ))}
            </div>
         </div>
       </div>
-      
-      <div className="obsidian-card-panel flex-1">
-        <h3 className="panel-title-obs">Distribution</h3>
-        <div className="distribution-ring-obs">
-           <div className="ring-content-obs">
-              <span className="ring-val-obs">64%</span>
-              <span className="ring-label-obs">TOUCHELITE</span>
-           </div>
-           <svg className="ring-svg" viewBox="0 0 100 100">
-             <circle className="ring-bg" cx="50" cy="50" r="45"></circle>
-             <circle className="ring-fill" cx="50" cy="50" r="45" style={{ strokeDasharray: '282.7', strokeDashoffset: '101.7' }}></circle>
-           </svg>
-        </div>
-        <div className="dist-legend-obs">
-           <div className="legend-item-obs">
-               <span className="dot" style={{backgroundColor: '#00E5FF'}}></span> 
-               <span>Elite Series</span>
-               <span className="legend-val">64%</span>
-           </div>
-           <div className="legend-item-obs">
-               <span className="dot" style={{backgroundColor: '#FF61D2'}}></span> 
-               <span>Standard</span>
-               <span className="legend-val">28%</span>
-           </div>
-           <div className="legend-item-obs">
-               <span className="dot" style={{backgroundColor: '#8B949E'}}></span> 
-               <span>Legacy</span>
-               <span className="legend-val">8%</span>
-           </div>
-        </div>
-      </div>
-    </div>
 
-    <div className="obsidian-content-row">
-      <div className="obsidian-card-panel flex-1">
-        <div className="panel-header-obs">
-            <h3 className="panel-title-obs">Inventory Critical</h3>
-            <Box size={16} color="var(--accent-yellow)" />
-        </div>
-        <div className="inventory-list-obs">
-          <div className="inventory-item-obs">
-             <div className="item-labels-obs">
-               <h4>Copper Contact Pins</h4>
-               <span className="item-count-obs">120 units left</span>
+      <div className="obsidian-card-panel">
+        <h3 className="panel-title-obs">Most Popular Menu Items</h3>
+        <div className="qc-list-obs" style={{ marginTop: '20px' }}>
+           {[
+             { name: 'Grilled Salmon With Lemon', price: '$55', rev: '4,500$' },
+             { name: 'Pad Thai With Chicken And Shrimp', price: '$44', rev: '4,500$' },
+             { name: 'Lobster Bisque With Garlic Butter', price: '$33', rev: '4,500$' }
+           ].map((item, i) => (
+             <div key={i} className="qc-item-obs">
+                <div className="qc-avatar-obs" style={{ backgroundImage: `url(https://source.unsplash.com/random/100x100?food&${i})`, borderRadius: '10px' }}></div>
+                <div className="qc-info-obs">
+                   <h4>{item.name}</h4>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                   <div style={{ fontWeight: 700 }}>{item.price}</div>
+                   <div style={{ fontSize: '12px', color: '#718096' }}>{item.rev}</div>
+                </div>
              </div>
-             <div className="progress-bar-obs"><div className="progress-fill-obs" style={{width: '20%', backgroundColor: '#FF61D2'}}></div></div>
-          </div>
-          <div className="inventory-item-obs">
-             <div className="item-labels-obs">
-               <h4>Tempered Glass Panels (Black)</h4>
-               <span className="item-count-obs">450 units left</span>
-             </div>
-             <div className="progress-bar-obs"><div className="progress-fill-obs" style={{width: '45%', backgroundColor: '#FFB300'}}></div></div>
-          </div>
-          <div className="inventory-item-obs">
-             <div className="item-labels-obs">
-               <h4>Capacitive Touch ICs</h4>
-               <span className="item-count-obs">890 units left</span>
-             </div>
-             <div className="progress-bar-obs"><div className="progress-fill-obs" style={{width: '70%', backgroundColor: '#FFB300'}}></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div className="obsidian-card-panel flex-1">
-        <div className="panel-header-obs">
-            <h3 className="panel-title-obs">Failed QC Telemetry</h3>
-            <span className="view-all-obs">VIEW ALL</span>
-        </div>
-        <div className="qc-list-obs">
-           <div className="qc-item-obs red">
-              <div className="qc-icon-box-obs">
-                 <AlertCircle size={18} />
-              </div>
-              <div className="qc-text-obs">
-                 <h4>Batch #KF-902 Failure</h4>
-                 <p>Resonance deviation detected in line 4.</p>
-              </div>
-              <span className="qc-time-obs">2m ago</span>
-           </div>
-           <div className="qc-item-obs yellow">
-              <div className="qc-icon-box-obs">
-                 <Zap size={18} />
-              </div>
-              <div className="qc-text-obs">
-                 <h4>Voltage Surge Incident</h4>
-                 <p>Unit 441 exceeded 240V during stress test.</p>
-              </div>
-              <span className="qc-time-obs">14m ago</span>
-           </div>
-           <div className="qc-item-obs pink">
-              <div className="qc-icon-box-obs">
-                 <Info size={18} />
-              </div>
-              <div className="qc-text-obs">
-                 <h4>Seal Integrity Compromised</h4>
-                 <p>Moisture ingress detected in IP65 series batch.</p>
-              </div>
-              <span className="qc-time-obs">1h ago</span>
-           </div>
+           ))}
         </div>
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default Dashboard;

@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { Upload, FileText, Plus, MoreVertical, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import React, { useState } from 'react';
+import { Upload, Plus, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Inventory = () => {
-    const [inventory, setInventory] = useState([]);
-
-    useEffect(() => {
-        setInventory([
-            { name: 'Cortex Core v2', desc: 'High-precision AI Controller', sku: 'SKU-882-X9', category: 'Electronics', price: '$1,240.00', stock: 142, status: 'IN STOCK', statusColor: '#00E676', progress: 70, progressColor: '#00E676', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=100' },
-            { name: 'Titanium Drive Gear', desc: 'Grade 5 Aerospace Alloy', sku: 'SKU-241-TR', category: 'Raw Materials', price: '$450.00', stock: 12, status: 'LOW STOCK', statusColor: '#FFB300', progress: 15, progressColor: '#FF61D2', img: 'https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?w=100' },
-            { name: 'Optic Sensor Array', desc: 'Lidar-ready IR modules', sku: 'SKU-902-OP', category: 'Precision Tools', price: '$2,800.00', stock: 0, status: 'OUT OF STOCK', statusColor: '#FF3D00', progress: 0, progressColor: '#FF3D00', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=100' },
-            { name: 'Hydro-Press Valve', desc: 'Pneumatic safety component', sku: 'SKU-551-HV', category: 'Heavy Machinery', price: '$325.00', stock: 42, status: 'IN STOCK', statusColor: '#00E676', progress: 30, progressColor: '#FF61D2', img: 'https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=100' },
-        ]);
-    }, []);
+    const [inventory] = useState([
+        { name: 'Cortex Core v2', desc: 'High-precision AI Controller', sku: 'SKU-882-X9', category: 'Electronics', price: '$1,240.00', stock: 142, status: 'IN STOCK', statusColor: '#2ecc71', progress: 70, progressColor: '#2ecc71', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=100' },
+        { name: 'Titanium Drive Gear', desc: 'Grade 5 Aerospace Alloy', sku: 'SKU-241-TR', category: 'Raw Materials', price: '$450.00', stock: 12, status: 'LOW STOCK', statusColor: '#ffc107', progress: 15, progressColor: '#ffc107', img: 'https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?w=100' },
+        { name: 'Optic Sensor Array', desc: 'Lidar-ready IR modules', sku: 'SKU-902-OP', category: 'Precision Tools', price: '$2,800.00', stock: 0, status: 'OUT OF STOCK', statusColor: '#e74c3c', progress: 0, progressColor: '#e74c3c', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=100' },
+        { name: 'Hydro-Press Valve', desc: 'Pneumatic safety component', sku: 'SKU-551-HV', category: 'Heavy Machinery', price: '$325.00', stock: 42, status: 'IN STOCK', statusColor: '#2ecc71', progress: 30, progressColor: '#ffc107', img: 'https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=100' },
+    ]);
 
     return (
         <div className="obsidian-view">
             <div className="obsidian-view-header">
                 <div className="header-title-section">
-                    <h1>Inventory Ledger</h1>
-                    <p>Global Asset Telemetry & Management</p>
+                    <h1 className="panel-title-obs" style={{ fontSize: '28px' }}>Inventory Ledger</h1>
+                    <p className="view-all-obs">Global Asset Telemetry & Management</p>
                 </div>
                 <div className="header-actions-obsidian">
-                    <button className="btn-obsidian-secondary"><Upload size={14} /> BULK UPLOAD</button>
-                    <button className="btn-obsidian-secondary"><FileText size={14} /> REPORT</button>
+                    <button className="btn-obsidian-primary" style={{ marginRight: '10px' }}><Upload size={14} /> BULK UPLOAD</button>
                     <button className="btn-obsidian-primary"><Plus size={14} /> ADD PRODUCT</button>
                 </div>
             </div>

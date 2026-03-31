@@ -1,25 +1,19 @@
-import React from 'react';
 import { Search, Bell, Settings } from 'lucide-react';
 
 const Topbar = () => (
     <header className="top-header-obsidian">
         <div className="top-search">
-            <Search size={16} color="var(--text-muted)" />
-            <input type="text" placeholder="Search SKU or name..." />
-        </div>
-        <div className="top-nav-links">
-           <nav>
-              <a href="#" className="active">OVERVIEW</a>
-              <a href="#">ANALYTICS</a>
-              <a href="#">LOGS</a>
-           </nav>
+            <Search size={18} />
+            <input type="text" placeholder="Search" />
         </div>
         <div className="top-actions-obsidian">
-           <Bell size={18} color="var(--text-muted)" />
-           <Settings size={18} color="var(--text-muted)" />
-           <div className="user-profile-obsidian">
-               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="User" />
-               <div className="online-indicator"></div>
+           <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>
+              Monday, July 2
+           </div>
+           <Bell size={20} color="var(--text-secondary)" />
+           <Settings size={20} color="var(--text-secondary)" />
+           <div className="user-profile-obsidian" style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#cbd5e0', padding: '2px' }}>
+               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=User" alt="User" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
            </div>
         </div>
     </header>

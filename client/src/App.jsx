@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 import Dashboard from './components/Dashboard';
-import Inventory from './components/Inventory';
-import Manufacturing from './components/Manufacturing';
-import QualityControl from './components/QualityControl';
-import Sales from './components/Sales';
-import Staff from './components/Staff';
+import StaffManagement from './components/StaffManagement';
+import ProductQC from './components/ProductQC';
+import SupplyChain from './components/SupplyChain';
+import InventoryManagement from './components/InventoryManagement';
+import OrderManagement from './components/OrderManagement';
+import Finance from './components/Finance';
+import Dispatch from './components/Dispatch';
+import PostSalesSupport from './components/PostSalesSupport';
 import './App.css';
 
 function App() {
@@ -14,20 +17,16 @@ function App() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'inventory':
-        return <Inventory />;
-      case 'manufacturing':
-        return <Manufacturing />;
-      case 'quality':
-        return <QualityControl />;
-      case 'sales':
-        return <Sales />;
-      case 'staff':
-        return <Staff />;
-      default:
-        return <Dashboard />;
+      case 'dashboard':   return <Dashboard name="Admin" />;
+      case 'staff':       return <StaffManagement />;
+      case 'products':    return <ProductQC />;
+      case 'supplychain': return <SupplyChain />;
+      case 'inventory':   return <InventoryManagement />;
+      case 'orders':      return <OrderManagement />;
+      case 'finance':     return <Finance />;
+      case 'dispatch':    return <Dispatch />;
+      case 'support':     return <PostSalesSupport />;
+      default:            return <Dashboard name="Admin" />;
     }
   };
 
@@ -35,10 +34,10 @@ function App() {
     <div className="dashboard-container">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="main-wrapper">
-         <Topbar />
-         <main className="main-content">
-           {renderContent()}
-         </main>
+        <Topbar />
+        <main className="main-content">
+          {renderContent()}
+        </main>
       </div>
     </div>
   );
