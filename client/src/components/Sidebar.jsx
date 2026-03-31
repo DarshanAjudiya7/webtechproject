@@ -36,8 +36,8 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   return (
     <aside className="sidebar-obsidian">
       <div className="brand-obsidian">
-        <div style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--accent-yellow)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Zap size={20} color="#1a202c" />
+        <div style={{ width: 40, height: 40, borderRadius: 8, background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+          <img src="/logo.png" alt="Company Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
         <div>
           <h1 className="brand-title" style={{ fontSize: 18, marginBottom: 0 }}>SwitchBoard</h1>
