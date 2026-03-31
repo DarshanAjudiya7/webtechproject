@@ -1,0 +1,14 @@
+# Global Ignore
+node_modules/
+.DS_Store
+.vscode/
+.idea/
+*.log
+.env
+.env.*
+dist/
+out/
+build/
+coverage/
+tmp/
+*.local
